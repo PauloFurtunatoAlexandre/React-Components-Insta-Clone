@@ -9,8 +9,8 @@ const CommentSection = props => {
 let [comments, setComments] = useState(props.comments);
 const [newComment, setNewComment] = useState("");
 
-const submitComment = (e) => {
-  e.preventDefault();
+const submitComment = (event) => {
+  event.preventDefault();
 
   setComments(
     comments = [...comments, {
@@ -18,23 +18,22 @@ const submitComment = (e) => {
     text: newComment
   }]);
 
+  setNewComment("");
+}
+
+const changeComment = (event) => {
+  // e.preventDefault();
+  setNewComment(event.target.value);
 }
 
   return (
     <div>
       {/* map through the comments data and return the Comment component */}
       {comments.map((comment, index) => {
-        return(
-          <Comment
-            key={index}
-            comments={comment}
-          />
-        );
+        return <Comment key={index} comments={comment} />;
       })}
-      <CommentInput 
-          newComment={newComment}
-          submitComment={submitComment}
-      />
+      
+      <CommentInput comment={newComment} submitComment={submitComment} changeComment={changeComment} />
     </div>
   );
 };
